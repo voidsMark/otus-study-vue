@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "lodash": "^4.17.21",
+    "numeral": "^2.0.6",
     "pinia": "^2.1.7",
     "sass": "^1.71.1",
     "vue": "^3.4.19",
@@ -18,7 +20,13 @@
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.20",
+    "@types/numeral": "^2.0.5",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "eslint": "8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-vue": "^9.26.0",
     "globals": "^15.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",

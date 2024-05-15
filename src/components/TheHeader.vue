@@ -17,7 +17,7 @@
     height: 48px
 
 .app-header
-  background-color: var(--backgroud-primary)
+  background-color: var(--background-primary)
   border-bottom: 1px solid var(--background-secondary)
   flex-shrink: 0
   height: 72px

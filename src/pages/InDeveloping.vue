@@ -1,6 +1,9 @@
 <template>
   <div class="notFoundPage__container">
-    <img src="@/assets/img/developing.svg" alt="">
+    <img
+      src="@/assets/img/developing.svg"
+      alt=""
+    >
     <div class="description">
       This page is under developing
     </div>
@@ -8,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-
 
 </script>
 
@@ -31,7 +33,7 @@
     font-weight: 700
     max-width: 520px
     margin: 0 20px
-    
+
   @media(max-width: 800px)
     h1
       font-size: 40px
