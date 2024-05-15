@@ -14,6 +14,9 @@
           @click="openProduct(item.id)"
         />
       </div>
+      <div class="loader-container">
+        <loaderBase v-if="!marketItems.length" />
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +25,7 @@
 import { onBeforeMount, shallowRef } from 'vue'
 import { storeApi } from '@/api/store'
 import MarketItem from '@/components/MarketItem.vue'
+import LoaderBase from '@/components/loaderBase.vue'
 
 const marketItems = shallowRef<Market.Item[]>([])
 
@@ -50,5 +54,11 @@ const openProduct = (id: number) => {
     @media(max-width: 800px)
       grid-template-columns: repeat(2, minmax(160px, 1fr))
       justify-items: center
+
+  .loader-container
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
 
 </style>
