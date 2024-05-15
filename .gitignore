@@ -25,7 +25,7 @@ dist-ssr
 
 
 #yarn
-yarn.lock
+*.lock
 
 .eslintcache
 
