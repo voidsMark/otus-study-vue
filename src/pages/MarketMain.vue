@@ -3,7 +3,7 @@
     <div class="container">
       <div class="main-page__items-grid">
         <MarketItem
-          v-for="item in marketItems"
+          v-for="item in products"
           :key="item.id"
           class="market__item"
           :img="item.image"
@@ -15,7 +15,7 @@
         />
       </div>
       <div class="loader">
-        <loaderBase v-if="!marketItems.length" />
+        <LoaderBase v-if="!products.length" />
       </div>
     </div>
   </div>
@@ -27,11 +27,11 @@ import { storeApi } from '@/api/store'
 import MarketItem from '@/components/MarketItem.vue'
 import LoaderBase from '@/components/loaderBase.vue'
 
-const marketItems = shallowRef<Market.Item[]>([])
+const products = shallowRef<Market.Item[]>([])
 
 onBeforeMount(async () => {
-  marketItems.value = await storeApi.getProducts()
-  console.log(marketItems)
+  products.value = await storeApi.getProducts()
+  console.log(products)
 })
 
 const openProduct = (id: number) => {
