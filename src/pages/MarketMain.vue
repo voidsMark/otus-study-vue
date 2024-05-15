@@ -14,7 +14,7 @@
           @click="openProduct(item.id)"
         />
       </div>
-      <div class="loader-container">
+      <div class="loader">
         <loaderBase v-if="!marketItems.length" />
       </div>
     </div>
@@ -55,7 +55,7 @@ const openProduct = (id: number) => {
       grid-template-columns: repeat(2, minmax(160px, 1fr))
       justify-items: center
 
-  .loader-container
+  .loader
     position: absolute
     top: 50%
     left: 50%
