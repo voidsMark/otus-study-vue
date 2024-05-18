@@ -4,8 +4,13 @@
     <img v-else src="../assets/img/no-picture.jpg" alt="preview" class="item-preview">
 
     <div class="data">
-      <div class="price">
-        {{ priceUSD(props.price) }}
+      <div class="price-category">
+        <div class="price">
+          {{ priceUSD(props.price) }}
+        </div>
+        <div class="category">
+          {{ props.category }}
+        </div>
       </div>
       <div class="title">
         {{ props.title }}
@@ -32,6 +37,7 @@ const props = defineProps<{
   img?: string,
   title: string,
   price: number,
+  category: string,
   grade?: number,
   commentsCount?: number
 }>()
@@ -67,6 +73,12 @@ const props = defineProps<{
     align-items: start
     row-gap: 4px
     width: 100%
+
+    .price-category
+      width: 100%
+      display: inline-flex
+      flex-direction: row
+      justify-content: space-between
 
     .title
       text-overflow: ellipsis

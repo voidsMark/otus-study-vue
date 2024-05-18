@@ -38,5 +38,12 @@ module.exports = {
         max: 1,
       },
     }],
+    'vue/attribute-hyphenation': ['error', 'never', {
+      'ignore': [],
+    }],
+    'vue/v-on-event-hyphenation': ['error', 'never', {
+      'autofix': false,
+      'ignore': [],
+    }],
   },
 }

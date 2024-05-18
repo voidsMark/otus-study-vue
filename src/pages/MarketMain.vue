@@ -9,30 +9,44 @@
           :img="item.image"
           :title="item.title"
           :price="item.price"
+          :category="item.category"
           :grade="item.rating.rate"
-          :comments-count="item.rating.count"
+          :commentsCount="item.rating.count"
           @click="openProduct(item.id)"
         />
       </div>
-      <div class="loader">
-        <LoaderBase v-if="!products.length" />
+      <div v-if="showLoader" class="loader">
+        <LoaderBase />
+      </div>
+
+      <div v-if="noProductsByFilters" class="no-products-placeholder">
+        Sorry, there are no products<br>that match your search
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, shallowRef } from 'vue'
-import { storeApi } from '@/api/store'
+import { onBeforeMount, computed } from 'vue'
 import MarketItem from '@/components/MarketItem.vue'
 import LoaderBase from '@/components/loaderBase.vue'
+import { useProductStore } from '@/stores/productStore'
 
-const products = shallowRef<Market.Item[]>([])
+const productStore = useProductStore()
 
 onBeforeMount(async () => {
-  products.value = await storeApi.getProducts()
-  console.log(products)
+  await productStore.getProducts()
 })
+const products = computed(() => productStore.filteredProducts)
+
+const noProductsByFilters = computed(() => {
+  const { priceMin, priceMax, category } = productStore.filters
+  if (priceMin || priceMax || category) {
+    return true
+  }
+  return false
+})
+const showLoader = computed(() => !products.value.length && !noProductsByFilters.value)
 
 const openProduct = (id: number) => {
   // TODO: open product
@@ -60,5 +74,15 @@ const openProduct = (id: number) => {
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
+
+  .no-products-placeholder
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+    text-align: center
+    font-size: 24px
+    color: var(--text-secondary)
 
 </style>
