@@ -41,7 +41,8 @@ const products = computed(() => productStore.filteredProducts)
 
 const noProductsByFilters = computed(() => {
   const { priceMin, priceMax, category } = productStore.filters
-  if (priceMin || priceMax || category) {
+  const hasFilters = priceMin || priceMax || category
+  if (hasFilters && !products.value.length) {
     return true
   }
   return false
