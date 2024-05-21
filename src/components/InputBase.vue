@@ -13,6 +13,7 @@
         <input v-model="inputValue" :placeholder="placeholder" @change="handleChange">
       </template>
     </div>
+
     <!-- TODO: Create custom select component -->
     <div v-if="props.type === 'select'" class="input-base__select">
       <select
@@ -22,16 +23,6 @@
         :multiple="props.multiple"
         @change="handleChange"
       >
-        <!-- TODO: fix placeholder -->
-        <!-- <option
-          v-if="props.placeholder"
-          value=""
-          disabled
-          hidden
-          selected
-        >
-          {{ props.placeholder }}
-        </option> -->
         <option v-for="option in props.options" :value="option">
           {{ option }}
         </option>
