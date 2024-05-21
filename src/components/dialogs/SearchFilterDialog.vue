@@ -103,6 +103,4 @@ const handleApply = () => {
 
     .input-base
       flex-grow: 1
-
 </style>
-@/stores/Products@/stores/products@/stores/product
