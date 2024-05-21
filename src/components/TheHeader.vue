@@ -8,8 +8,7 @@
         </router-link>
       </div>
 
-      <InputBase
-        type="search"
+      <TheSearchField
         :modelValue="searchQuery"
         @update:modelValue="updateSearch"
         @openSearchFilters="handleOpenFilters"
@@ -46,7 +45,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProductStore } from '@/stores/product'
 import Icon from './Icon.vue'
-import InputBase from './InputBase.vue'
+import TheSearchField from './TheSearchField.vue'
 import SearchFiltersDialog from './dialogs/SearchFilterDialog.vue'
 
 const router = useRouter()

@@ -1,16 +1,5 @@
 <template>
   <div class="input-base">
-    <div v-if="props.type === 'search'" class="input-base__search">
-      <div class="filter-button" @click="openFilters">
-        <Icon icon="filter" />
-      </div>
-      <input v-model="inputValue" placeholder="Search..." @keyup.enter="handleChange">
-
-      <div class="search-button" @click="handleChange">
-        <Icon icon="search" />
-      </div>
-    </div>
-
     <div
       v-if="props.type === 'number' || props.type === 'text'"
       class="input-base__input-field"
@@ -53,7 +42,6 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import Icon from './Icon.vue'
 
 const props = defineProps<{
   type?: string,
@@ -72,10 +60,6 @@ watch(() => props.modelValue, () => {
 
 const handleChange = () => {
   emits('update:modelValue', inputValue.value)
-}
-
-const openFilters = () => {
-  emits('openSearchFilters')
 }
 
 </script>
@@ -97,51 +81,6 @@ const openFilters = () => {
 
     &::placeholder
       color: var(--text-secondary)
-
-  .input-base__search
-    display: inline-flex
-    overflow: hidden
-
-    min-width: 200px
-    max-width: 100%
-
-    .filter-button
-      display: flex
-      justify-content: center
-      align-items: center
-      cursor: pointer
-
-      width: 120px
-      background-color: var(--background-secondary)
-      svg
-        fill: var(--text-primary)
-
-      &:hover
-        background-color: var(--background-hover)
-
-      &:active
-        background-color: var(--background-secondary)
-        svg
-          fill: var(--text-secondary)
-
-    .search-button
-      display: flex
-      justify-content: center
-      align-items: center
-      cursor: pointer
-
-      width: 120px
-      background-color: var(--background-accent)
-      svg
-        fill: var(--text-primary)
-
-      &:hover
-        background-color: var(--background-hover)
-
-      &:active
-        background-color: var(--background-accent)
-        svg
-          fill: var(--text-secondary)
 
   .input-base__input-field
     display: inline-flex
