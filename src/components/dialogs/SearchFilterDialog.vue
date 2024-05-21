@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import { reactive, computed } from 'vue'
-import { useProductStore } from '@/stores/productStore'
+import { useProductStore } from '@/stores/product'
 
 import ButtonBase from '@/components/ButtonBase.vue'
 import InputBase from '../InputBase.vue'
@@ -100,3 +100,4 @@ const handleApply = () => {
       flex-grow: 1
 
 </style>
+@/stores/Products@/stores/products@/stores/product

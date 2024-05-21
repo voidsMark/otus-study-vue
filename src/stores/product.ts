@@ -7,10 +7,10 @@ export const useProductStore = defineStore('product', {
     categories: [] as string[],
     searchQuery: '',
     filters: {} as Market.Filters,
-    isFiltred: false,
   }),
   getters: {
     filteredProducts: (state) => {
+      console.log('Store: filteredProducts()')
       const needToFilter = Boolean(state.filters.priceMin || state.filters.priceMax || state.filters.category || state.searchQuery)
 
       if (!needToFilter) {
@@ -49,29 +49,27 @@ export const useProductStore = defineStore('product', {
       console.log('Store: setSearchQuery()')
 
       this.searchQuery = query
-      console.log('store:', this.searchQuery)
     },
     setFilters(filters: Market.Filters) {
       console.log('Store: setFilters()')
 
       this.filters = filters
-      console.log('store:', this.filters)
     },
-    setIsFiltred(isFiltred: boolean) {
-      this.isFiltred = isFiltred
-    },
+
     // API
     async getProducts() {
       console.log('Store: getProducts()')
 
       const products = await storeApi.getProducts()
-
-      const categories = Array.from(new Set(products.map((product) => product.category)))
-      // categories.unshift('any')
-      // console.log('categories:', categories)
-
-      this.setCategories(categories)
       this.setProducts(products)
+      this.getCategories()
+    },
+
+    async getCategories() {
+      console.log('Store: getCategories()')
+
+      const categories = await storeApi.getCategories()
+      this.setCategories(categories)
     },
   },
 })

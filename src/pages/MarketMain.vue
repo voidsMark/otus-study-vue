@@ -28,12 +28,13 @@
 
 <script lang="ts" setup>
 import { onBeforeMount, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import MarketItem from '@/components/MarketItem.vue'
 import LoaderBase from '@/components/loaderBase.vue'
-import { useProductStore } from '@/stores/productStore'
+import { useProductStore } from '@/stores/product'
 
 const productStore = useProductStore()
-
+const router = useRouter()
 onBeforeMount(async () => {
   await productStore.getProducts()
 })
@@ -49,9 +50,8 @@ const noProductsByFilters = computed(() => {
 })
 const showLoader = computed(() => !products.value.length && !noProductsByFilters.value)
 
-const openProduct = (id: number) => {
-  // TODO: open product
-  console.log(id)
+const openProduct = (id: string) => {
+  router.push({ name: 'ProductPage', params: { productId: id } })
 }
 
 </script>
@@ -69,12 +69,6 @@ const openProduct = (id: number) => {
     @media(max-width: 800px)
       grid-template-columns: repeat(2, minmax(160px, 1fr))
       justify-items: center
-
-  .loader
-    position: absolute
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
 
   .no-products-placeholder
     position: absolute

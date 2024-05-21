@@ -43,11 +43,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useProductStore } from '@/stores/productStore'
+import { useRouter } from 'vue-router'
+import { useProductStore } from '@/stores/product'
 import Icon from './Icon.vue'
 import InputBase from './InputBase.vue'
 import SearchFiltersDialog from './dialogs/SearchFilterDialog.vue'
 
+const router = useRouter()
 const productStore = useProductStore()
 
 const searchQuery = ref('')
@@ -57,6 +59,7 @@ const updateSearch = (query: string) => {
 
   searchQuery.value = query
   productStore.setSearchQuery(searchQuery.value)
+  router.push('/')
 }
 
 const showFilters = ref(false)
@@ -72,6 +75,7 @@ const handleApplyFilters = (e: Market.Filters) => {
 
   productStore.setFilters(e)
   showFilters.value = false
+  router.push('/')
 }
 
 </script>
@@ -126,3 +130,5 @@ const handleApplyFilters = (e: Market.Filters) => {
     svg
       fill: var(--text-primary)
 </style>
+@/stores/Products@/stores/products
+@/stores/product

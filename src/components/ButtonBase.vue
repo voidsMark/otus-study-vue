@@ -17,6 +17,7 @@ const props = defineProps<{
 .button-base
   cursor: pointer
   button
+    width: 100%
     padding: 10px
     border-radius: 8px
     border: 1px solid var(--border-accent)

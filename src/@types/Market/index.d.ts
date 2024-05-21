@@ -3,7 +3,7 @@ namespace Market {
   export interface Product {
     category: string,
     description: string,
-    id: number,
+    id: string,
     image: string,
     price: number,
     title: string,
