@@ -21,7 +21,7 @@
           Category
         </div>
         <div class="input-group">
-          <InputBase
+          <SelectField
             :modelValue="filters.category"
             type="select"
             placeholder="Choose category"
@@ -48,9 +48,10 @@
 import { reactive, computed, onBeforeMount } from 'vue'
 import { useProductStore } from '@/stores/product'
 
-import ButtonBase from '@/components/ButtonBase.vue'
-import InputBase from '../InputBase.vue'
 import DialogBase from './DialogBase.vue'
+import ButtonBase from '@/components/ButtonBase.vue'
+import InputBase from '@/components/InputBase.vue'
+import SelectField from '@/components/SelectField.vue'
 
 const props = defineProps<{
   showDialog: boolean

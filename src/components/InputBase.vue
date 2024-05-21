@@ -1,10 +1,6 @@
 <template>
   <div class="input-base">
-    <div
-      v-if="props.type === 'number' || props.type === 'text'"
-      class="input-base__input-field"
-      :class="{'number': props.type === 'number', 'text': props.type === 'text'}"
-    >
+    <div class="input-base__input-field">
       <template v-if="props.type === 'number'">
         <input v-model.number="inputValue" :placeholder="placeholder" @change="handleChange">
       </template>
@@ -12,21 +8,6 @@
       <template v-if="props.type === 'text'">
         <input v-model="inputValue" :placeholder="placeholder" @change="handleChange">
       </template>
-    </div>
-
-    <!-- TODO: Create custom select component -->
-    <div v-if="props.type === 'select'" class="input-base__select">
-      <select
-        id="select"
-        v-model="inputValue"
-        name="select"
-        :multiple="props.multiple"
-        @change="handleChange"
-      >
-        <option v-for="option in props.options" :value="option">
-          {{ option }}
-        </option>
-      </select>
     </div>
   </div>
 </template>
@@ -75,24 +56,4 @@ const handleChange = () => {
 
   .input-base__input-field
     display: inline-flex
-
-  .input-base__select
-    display: inline-flex
-    overflow: hidden
-    width: 100%
-
-    select
-      width: 100%
-      padding: 10px 10px
-      background-color: transparent
-      color: var(--text-primary)
-      text-transform: capitalize
-      cursor: pointer
-      option
-        outline: none
-        border: none
-        padding: 2em
-        background-color: var(--background-primary)
-        color: var(--text-primary)
-
 </style>
