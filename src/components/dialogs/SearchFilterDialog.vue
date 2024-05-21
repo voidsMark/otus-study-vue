@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, onBeforeMount } from 'vue'
 import { useProductStore } from '@/stores/product'
 
 import ButtonBase from '@/components/ButtonBase.vue'
@@ -58,6 +58,10 @@ const props = defineProps<{
 const emits = defineEmits(['close', 'apply'])
 
 const productStore = useProductStore()
+
+onBeforeMount(async () => {
+  await productStore.getCategories()
+})
 
 const categories = computed(() => productStore.categories)
 

@@ -62,7 +62,6 @@ export const useProductStore = defineStore('product', {
 
       const products = await storeApi.getProducts()
       this.setProducts(products)
-      this.getCategories()
     },
 
     async getCategories() {
