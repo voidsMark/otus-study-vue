@@ -17,8 +17,8 @@ export const router = createRouter({
 
     { path: '/product/:productId', component: ProductPage, name: 'ProductPage' },
 
-    { path: '/:pathMatch(.*)*', component: NotFound404, name: '404' },
     { path: '/in-developing', component: InDeveloping, name: 'developing' },
+    { path: '/:pathMatch(.*)*', component: NotFound404, name: '404' },
   ],
 })
 
