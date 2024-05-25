@@ -8,7 +8,7 @@
       @change="handleChange"
       @blur="emits('blur')"
     >
-    <label class="checkbox-base__label" @click="inputValue = !inputValue">
+    <label class="checkbox-base__label" @click="handleLabelClick">
       <slot />
     </label>
 
@@ -42,6 +42,13 @@ const fieldAttrs = computed(() => {
 
 const handleChange = () => {
   emits('update:modelValue', inputValue.value)
+}
+
+const handleLabelClick = () => {
+  if (!props.disabled) {
+    inputValue.value = !inputValue.value
+  }
+  handleChange()
 }
 </script>
 
