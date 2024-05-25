@@ -21,6 +21,7 @@ module.exports = {
     'no-continue': 'off',
     'quote-props': 'off',
     'max-len': 'off',
+    'object-curly-newline': 'off',
     'vue/require-v-for-key': 'off',
     'import/prefer-default-export': 'off',
     'import/extensions': ['error', 'never', {

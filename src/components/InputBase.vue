@@ -4,7 +4,6 @@
       <template v-if="props.type === 'number'">
         <input
           v-model.number="inputValue"
-          :placeholder="props.placeholder"
           v-bind="fieldAttrs"
           @change="handleChange"
           @blur="emits('blur')"
@@ -14,7 +13,6 @@
       <template v-if="props.type === 'text'">
         <input
           v-model="inputValue"
-          :placeholder="props.placeholder"
           v-bind="fieldAttrs"
           @change="handleChange"
           @blur="emits('blur')"
@@ -32,9 +30,9 @@ import { ref, watch, computed } from 'vue'
 
 const props = defineProps<{
   type?: string,
-  modelValue: string | number | boolean | undefined,
   placeholder?: string,
   error?: string
+  modelValue?: string | number | boolean | undefined,
 }>()
 const emits = defineEmits(['update:modelValue', 'blur'])
 
@@ -45,7 +43,7 @@ watch(() => props.modelValue, () => {
 })
 
 const fieldAttrs = computed(() => {
-  const { modelValue, error, ...rest } = props
+  const { error, ...rest } = props
   return rest
 })
 
@@ -76,8 +74,8 @@ const handleChange = () => {
       &::placeholder
         color: var(--text-secondary)
 
-.input-error
-  color: var(--text-error)
-  font-size: 0.875rem
-  margin-left: 16px
+  .input-error
+    color: var(--text-error)
+    font-size: 0.875rem
+    margin-left: 16px
 </style>

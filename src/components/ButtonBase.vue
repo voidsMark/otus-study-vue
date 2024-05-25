@@ -1,6 +1,6 @@
 <template>
   <div class="button-base">
-    <button :class="{'flat': props.flat, 'disabled': props.disabled}">
+    <button :class="{'flat': props.flat, 'disabled': props.disabled}" :disabled="props.disabled">
       <slot />
     </button>
   </div>
@@ -37,4 +37,15 @@ const props = defineProps<{
         border: 1px solid var(--border-hover)
       &:active
         color: var(--text-secondary)
+
+    &.disabled
+      background-color: var(--background-disabled)
+      border: 1px solid var(--border-disabled)
+      cursor: not-allowed
+      &:hover
+        background-color: var(--background-disabled) !important
+        border: 1px solid var(--border-disabled) !important
+      &:active
+        background-color: var(--background-disabled) !important
+        border: 1px solid var(--border-disabled) !important
 </style>

@@ -5,61 +5,97 @@
     </template>
 
     <template #content>
-      <div class="payment-dialog">
-        <InputBase
-          v-model="userData.name"
-          type="text"
-          placeholder="Name"
-          :error="getError('name')"
-        />
+      <Form>
+        <div class="payment-dialog">
+          <Field v-slot="{ field, errorMessage }" name="name" rules="required">
+            <InputBase
+              v-bind="field"
+              v-model="userData.name"
+              type="text"
+              placeholder="Name"
+              :error="errorMessage"
+            />
+          </Field>
 
-        <div class="input-row">
-          <InputBase
-            v-model="userData.email"
-            type="text"
-            placeholder="Email"
-            :error="getError('email')"
-          />
-          <InputBase
-            v-model="userData.phone"
-            type="text"
-            placeholder="Phone"
-            :error="getError('phone')"
-          />
+          <div class="input-row">
+            <Field v-slot="{ field, errorMessage }" name="email" rules="required|email">
+              <InputBase
+                v-bind="field"
+                v-model="userData.email"
+                type="text"
+                placeholder="Email"
+                :error="errorMessage"
+              />
+            </Field>
+            <Field v-slot="{ field, errorMessage }" name="phone" rules="required">
+              <InputBase
+                v-bind="field"
+                v-model="userData.phone"
+                type="text"
+                placeholder="Phone"
+                :error="errorMessage"
+              />
+            </Field>
+          </div>
+
+          <Field v-slot="{ field, errorMessage }" name="address" rules="required">
+            <InputBase
+              v-bind="field"
+              v-model="userData.address"
+              type="text"
+              placeholder="Address"
+              :error="errorMessage"
+            />
+          </Field>
+
+          <div class="input-card-group">
+            <Field v-slot="{ field, errorMessage }" name="cardNumber" rules="required|min:16">
+              <InputBase
+                v-bind="field"
+                v-model="userData.cardNumber"
+                type="text"
+                placeholder="Card Number"
+                :error="errorMessage"
+              />
+            </Field>
+            <Field v-slot="{ field, errorMessage }" name="cardExpiry" rules="required|min:4">
+              <InputBase
+                v-bind="field"
+                v-model="userData.cardExpiry"
+                type="text"
+                placeholder="MM/YY"
+                :error="errorMessage"
+              />
+            </Field>
+            <Field v-slot="{ field, errorMessage }" name="cardCVC" rules="required|min:3">
+              <InputBase
+                v-bind="field"
+                v-model="userData.cardCVC"
+                type="text"
+                placeholder="CVC"
+                :error="errorMessage"
+              />
+            </Field>
+          </div>
+
+          <Field v-slot="{ field, errorMessage }" name="productId" rules="required">
+            <CheckboxBase
+              v-model="userData.agreement"
+              v-bind="field"
+              :error="errorMessage"
+            >
+              I agree to the
+              <RouterLink class="accent" to="/terms">
+                terms and conditions
+              </RouterLink>
+            </CheckboxBase>
+          </Field>
         </div>
-
-        <InputBase
-          v-model="userData.address"
-          type="text"
-          placeholder="Address"
-          :error="getError('address')"
-        />
-
-        <div class="input-card-group">
-          <InputBase
-            v-model="userData.cardNumber"
-            type="text"
-            placeholder="Card Number"
-            :error="getError('cardNumber')"
-          />
-          <InputBase
-            v-model="userData.cardExpiry"
-            type="text"
-            placeholder="MM/YY"
-            :error="getError('cardExpiry')"
-          />
-          <InputBase
-            v-model="userData.cardCVC"
-            type="text"
-            placeholder="CVC"
-            :error="getError('cardCVC')"
-          />
-        </div>
-      </div>
+      </Form>
     </template>
 
     <template #actions>
-      <ButtonBase @click="submitForm">
+      <ButtonBase :disabled="!isFormValid" @click="submitForm">
         Apply
       </ButtonBase>
     </template>
@@ -67,13 +103,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { defineRule, configure } from 'vee-validate'
-import { required, email, min } from '@vee-validate/rules'
+import { reactive, computed } from 'vue'
+import { defineRule, configure, Form, Field } from 'vee-validate'
+import { required, email as veeEmail, min } from '@vee-validate/rules'
+import { storeApi } from '@/api/store'
 
 import DialogBase from './DialogBase.vue'
 import ButtonBase from '../ButtonBase.vue'
 import InputBase from '../InputBase.vue'
+import CheckboxBase from '../CheckboxBase.vue'
 
 const props = defineProps<{
   showDialog: boolean,
@@ -90,10 +128,11 @@ const userData = reactive({
   cardNumber: '',
   cardExpiry: '',
   cardCVC: '',
+  agreement: false,
 })
 
 defineRule('required', required)
-defineRule('email', email)
+defineRule('email', veeEmail)
 defineRule('min', min)
 
 configure({
@@ -108,14 +147,30 @@ configure({
   },
 })
 
-const getError = (field: string) => `error ${field}`
-
 const handleClose = () => {
   emits('close')
 }
 
+const isFormValid = computed(() => userData.email && userData.name && userData.phone && userData.address && userData.cardNumber && userData.cardExpiry && userData.cardCVC && userData.agreement)
+
 const submitForm = async () => {
-  console.log('PaymentDialog: submitForm()')
+  const { email, name, phone, address, cardNumber } = userData
+  const order: Market.Order = {
+    productId: props.productId.toString(),
+    name,
+    email,
+    phone,
+    address,
+    cardNumber,
+    date: new Date(),
+  }
+  try {
+    await storeApi.createOrder(order)
+    handleClose()
+  } catch (error) {
+    console.log('PaymentDialog: submitForm error:', error)
+    // TODO: show error to user
+  }
 }
 </script>
 

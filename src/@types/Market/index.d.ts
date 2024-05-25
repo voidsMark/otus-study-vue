@@ -18,4 +18,15 @@ namespace Market {
     priceMax: number | undefined,
     category: string | undefined
   }
+
+  export interface Order {
+    productId: string
+    name: string,
+    email: string,
+    phone: string,
+    address: string,
+    cardNumber: string
+    date: Date
+    // i wont pass card data into request coz it will be encrypted and stored in db later
+  }
 }
